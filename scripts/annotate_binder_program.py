@@ -7,6 +7,10 @@ import json
 import argparse
 import copy
 import os
+import sys
+current = os.path.dirname(os.path.realpath(__file__))
+parent = os.path.dirname(current)
+sys.path.append(parent)
 
 from typing import List
 import platform
@@ -17,7 +21,6 @@ from utils.utils import load_data_split
 from nsql.database import NeuralDB
 
 ROOT_DIR = os.path.join(os.path.dirname(__file__), "../")
-
 
 def worker_annotate(
         pid: int,
