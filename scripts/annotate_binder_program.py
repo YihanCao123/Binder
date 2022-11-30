@@ -38,13 +38,17 @@ def worker_annotate(
     for g_eid in g_eids:
         try:
             g_data_item = dataset[g_eid]
+            print("g_data_item", g_data_item)
             g_dict[g_eid] = {
                 'generations': [],
                 'ori_data_item': copy.deepcopy(g_data_item)
             }
+            print("g_dict", g_dict)
+
             db = NeuralDB(
                 tables=[{'title': g_data_item['table']['page_title'], 'table': g_data_item['table']}]
             )
+            
             g_data_item['table'] = db.get_table_df()
             g_data_item['title'] = db.get_table_title()
             n_shots = args.n_shots
@@ -111,6 +115,7 @@ def main():
     start_time = time.time()
     dataset = load_data_split(args.dataset, args.dataset_split)
 
+    print(type(dataset))
     # For TabFact test split, we load the small test set (about 2k examples) to test,
     # since it is expensive to test on full set
     if args.dataset == "tab_fact" and args.dataset_split == "test":
@@ -185,7 +190,7 @@ if __name__ == '__main__':
                                  'create_table_select_3_full_table_w_all_passage_image',
                                  'create_table_select_3_full_table_w_gold_passage_image',
                                  'no_table'])
-    parser.add_argument('--generate_type', type=str, default='nsql',
+    parser.add_argument('--generate_type', type=str, default='python',
                         choices=['nsql', 'sql', 'answer', 'npython', 'python'])
     parser.add_argument('--n_shots', type=int, default=14)
     parser.add_argument('--seed', type=int, default=42)

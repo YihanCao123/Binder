@@ -9,9 +9,9 @@ os.system(fr"""{TOKENIZER_FALSE}python {ROOT_DIR}scripts/annotate_binder_program
 --dataset_split test \
 --prompt_file templates/prompts/wikitq_binder.txt \
 --n_parallel_prompts 1 \
---max_generation_tokens 512 \
+--max_generation_tokens 256 \
 --temperature 0.4 \
---sampling_n 20 \
+--sampling_n 5 \
 -v""")
 
 # wikitq nsql execution command
